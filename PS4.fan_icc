@@ -13,3 +13,5 @@ watch cat /sys/class/hwmon/hwmon1/device/hwmon/hwmon1/temp1_input
 
 ok, so after few test, it turns out the 0x35/0x4f is temperature threshold (53/79 degrees celsius),
 so the fan on the PS4 Pro was working correctly, except the threshold is actually set really really high 79 degrees.
+
+Note: changing the threshold in linux will carry across reboot back to PS4 main OS.
