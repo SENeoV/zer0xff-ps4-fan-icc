@@ -1,0 +1,37 @@
+Note, While I have ran this on PS4 main OS, I only tested it by setting the threshold to 0,
+which I'm warning you against doing, as setting this caused the fan to go into extreme RPM speeds,
+to the point where I believe could potentially damage your fan blades,
+which if dislodged could hit other blades and cause some some serious damage to the other blades and PS4 internal,
+so you better know what you're doing before you run this.
+but it should work in theory based on how I got it to work under linux anyone want to confirm this.
+Also Note, that this will survive across reboot, so its not wise to set extremely low temperature 0 degrees for example.
+However, unplugging the power source does seem to reset to default.
+
+A while back @TheoryWrong posted this code snipet for controlling PS4 fan speed.
+
+
+int fd = open("/dev/icc_fan", O_RDONLY, 0);
+if (fd <= 0)
+{
+    send_system_notification_with_text("ICC_FAN CAN'T OPEN.");
+}
+else
+{
+  send_system_notification_with_text("ICC_FAN OPENED.");
+}
+		
+char* data[10] = {0,0,0,0,0,0,0,0,0,0};
+int ret = ioctl(fd, 0xC01C8F07, data);
+close(fd);
+
+however it set the fan spinning at an extremely high rate, since the fan starts ramping up at 0 degrees C.
+Now as i mentioned in my PS4.fan_icc I managed to figure out the values or 1 value atleast and what it means,
+the 5th index is the threshold that triggers the fan to spin, in the above example its set to 0 degrees C.
+
+My PS4 (Pro) default value is 79 degrees C
+so data would look like this
+char* data[10] = {0x00, 0x00, 0x00, 0x00, 0x00, 79, 0x00, 0x00, 0x00, 0x00 0x08};
+so swapping 79 to your prefered temperature and the fan will trigger once its reached.
+
+Note dont set it to believe 60 on PS4 main OS, as idling temperature is about 55 degrees,
+and 60 will trigger even on basic media playback, e.g Plex.

@@ -1,3 +1,8 @@
+# Thanks to @RancidoPS3ita for placing send_icc_cmd in Psxita (PS4 linux arch build)
+# and providing instruction on how it works
+# create device node to control ICC
+sudo mknod -m 0666 /dev/icc c 0x49 1
+
 # get current fan settings
 send_icc_cmd 0xA 7 0 0 52
 
@@ -11,7 +16,8 @@ send_icc_cmd 0xA 6 52 0x00 0x00 0x00 0x00 0x00 0x3b 0x00 0x00 0x00 0x08 0x00 0x0
 watch cat /sys/class/hwmon/hwmon1/device/hwmon/hwmon1/temp1_input
 
 
-ok, so after few test, it turns out the 0x35/0x4f is temperature threshold (59/79 degrees celsius),
+ok, so after few test, it turns out the 0x35/0x4f is the temperature threshold (59/79 degrees celsius),
 so the fan on the PS4 Pro was working correctly, except the threshold is actually set really really high 79 degrees.
 
 Note: changing the threshold in linux will carry across reboot back to PS4 main OS.
+Unplugging the power supply reset the value to defualt
