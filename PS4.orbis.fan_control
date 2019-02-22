@@ -33,5 +33,5 @@ so data would look like this
 char* data[10] = {0x00, 0x00, 0x00, 0x00, 0x00, 79, 0x00, 0x00, 0x00, 0x00 0x08};
 so swapping 79 to your prefered temperature and the fan will trigger once its reached.
 
-Note dont set it to believe 60 on PS4 main OS, as idling temperature is about 55 degrees,
+Note dont set it to below 60 on PS4 main OS, as idling temperature is about 55 degrees,
 and 60 will trigger even on basic media playback, e.g Plex.
